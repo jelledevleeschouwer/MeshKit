@@ -12,6 +12,9 @@
 		82F5C3631C6CE34A002E72E3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 82F5C3621C6CE34A002E72E3 /* GameScene.sks */; };
 		82F5C3651C6CE34A002E72E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82F5C3641C6CE34A002E72E3 /* Assets.xcassets */; };
 		82F5C3681C6CE34A002E72E3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82F5C3661C6CE34A002E72E3 /* MainMenu.xib */; };
+		82F5C3701C6CE419002E72E3 /* MeshNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F5C36F1C6CE419002E72E3 /* MeshNode.swift */; };
+		82F5C3721C6CF760002E72E3 /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F5C3711C6CF760002E72E3 /* VectorMath.swift */; };
+		82F5C3741C6D3AEC002E72E3 /* MeshPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F5C3731C6D3AEC002E72E3 /* MeshPath.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		82F5C3641C6CE34A002E72E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		82F5C3671C6CE34A002E72E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		82F5C3691C6CE34A002E72E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82F5C36F1C6CE419002E72E3 /* MeshNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshNode.swift; sourceTree = "<group>"; };
+		82F5C3711C6CF760002E72E3 /* VectorMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
+		82F5C3731C6D3AEC002E72E3 /* MeshPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshPath.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +62,9 @@
 			children = (
 				82F5C35E1C6CE34A002E72E3 /* AppDelegate.swift */,
 				82F5C3601C6CE34A002E72E3 /* GameScene.swift */,
+				82F5C36F1C6CE419002E72E3 /* MeshNode.swift */,
+				82F5C3731C6D3AEC002E72E3 /* MeshPath.swift */,
+				82F5C3711C6CF760002E72E3 /* VectorMath.swift */,
 				82F5C3621C6CE34A002E72E3 /* GameScene.sks */,
 				82F5C3641C6CE34A002E72E3 /* Assets.xcassets */,
 				82F5C3661C6CE34A002E72E3 /* MainMenu.xib */,
@@ -135,8 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82F5C3721C6CF760002E72E3 /* VectorMath.swift in Sources */,
+				82F5C3701C6CE419002E72E3 /* MeshNode.swift in Sources */,
 				82F5C3611C6CE34A002E72E3 /* GameScene.swift in Sources */,
 				82F5C35F1C6CE34A002E72E3 /* AppDelegate.swift in Sources */,
+				82F5C3741C6D3AEC002E72E3 /* MeshPath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
