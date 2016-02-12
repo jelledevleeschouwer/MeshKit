@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2FC15E556A3684AD648F25C5 /* Pods_MeshKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2D0B9921E37E785F31FA925 /* Pods_MeshKit.framework */; };
+		82C619F51C6E5F3300A3089C /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C619F31C6E5F3300A3089C /* ConfigurationViewController.swift */; };
+		82C619F61C6E5F3300A3089C /* ConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82C619F41C6E5F3300A3089C /* ConfigurationViewController.xib */; };
 		82F5C35F1C6CE34A002E72E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F5C35E1C6CE34A002E72E3 /* AppDelegate.swift */; };
 		82F5C3611C6CE34A002E72E3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F5C3601C6CE34A002E72E3 /* GameScene.swift */; };
 		82F5C3631C6CE34A002E72E3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 82F5C3621C6CE34A002E72E3 /* GameScene.sks */; };
@@ -18,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		82C619F31C6E5F3300A3089C /* ConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
+		82C619F41C6E5F3300A3089C /* ConfigurationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigurationViewController.xib; sourceTree = "<group>"; };
 		82F5C35B1C6CE34A002E72E3 /* MeshKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeshKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82F5C35E1C6CE34A002E72E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82F5C3601C6CE34A002E72E3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -28,6 +33,9 @@
 		82F5C36F1C6CE419002E72E3 /* MeshNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshNode.swift; sourceTree = "<group>"; };
 		82F5C3711C6CF760002E72E3 /* VectorMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
 		82F5C3731C6D3AEC002E72E3 /* MeshPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeshPath.swift; sourceTree = "<group>"; };
+		A2D0B9921E37E785F31FA925 /* Pods_MeshKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeshKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA2CFD56C941E356F5115140 /* Pods-MeshKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeshKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MeshKit/Pods-MeshKit.debug.xcconfig"; sourceTree = "<group>"; };
+		BEA205232624BF7E2545771B /* Pods-MeshKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeshKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-MeshKit/Pods-MeshKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FC15E556A3684AD648F25C5 /* Pods_MeshKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2214AC56AECCBD0E3872D688 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BA2CFD56C941E356F5115140 /* Pods-MeshKit.debug.xcconfig */,
+				BEA205232624BF7E2545771B /* Pods-MeshKit.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		57B9FA4A61B31C2CA6E59515 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A2D0B9921E37E785F31FA925 /* Pods_MeshKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		82F5C3521C6CE34A002E72E3 = {
 			isa = PBXGroup;
 			children = (
 				82F5C35D1C6CE34A002E72E3 /* MeshKit */,
 				82F5C35C1C6CE34A002E72E3 /* Products */,
+				2214AC56AECCBD0E3872D688 /* Pods */,
+				57B9FA4A61B31C2CA6E59515 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,12 +89,14 @@
 			isa = PBXGroup;
 			children = (
 				82F5C35E1C6CE34A002E72E3 /* AppDelegate.swift */,
+				82C619F31C6E5F3300A3089C /* ConfigurationViewController.swift */,
 				82F5C3601C6CE34A002E72E3 /* GameScene.swift */,
 				82F5C36F1C6CE419002E72E3 /* MeshNode.swift */,
 				82F5C3731C6D3AEC002E72E3 /* MeshPath.swift */,
 				82F5C3711C6CF760002E72E3 /* VectorMath.swift */,
 				82F5C3621C6CE34A002E72E3 /* GameScene.sks */,
 				82F5C3641C6CE34A002E72E3 /* Assets.xcassets */,
+				82C619F41C6E5F3300A3089C /* ConfigurationViewController.xib */,
 				82F5C3661C6CE34A002E72E3 /* MainMenu.xib */,
 				82F5C3691C6CE34A002E72E3 /* Info.plist */,
 			);
@@ -80,9 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 82F5C36C1C6CE34A002E72E3 /* Build configuration list for PBXNativeTarget "MeshKit" */;
 			buildPhases = (
+				040DC9F3D692D0D0283B5726 /* Check Pods Manifest.lock */,
 				82F5C3571C6CE34A002E72E3 /* Sources */,
 				82F5C3581C6CE34A002E72E3 /* Frameworks */,
 				82F5C3591C6CE34A002E72E3 /* Resources */,
+				1B23D18A82B2B899DD72A6F0 /* Embed Pods Frameworks */,
+				7E52AE0F7EBEDF14983EB64A /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -134,10 +167,59 @@
 				82F5C3651C6CE34A002E72E3 /* Assets.xcassets in Resources */,
 				82F5C3631C6CE34A002E72E3 /* GameScene.sks in Resources */,
 				82F5C3681C6CE34A002E72E3 /* MainMenu.xib in Resources */,
+				82C619F61C6E5F3300A3089C /* ConfigurationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		040DC9F3D692D0D0283B5726 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		1B23D18A82B2B899DD72A6F0 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MeshKit/Pods-MeshKit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E52AE0F7EBEDF14983EB64A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MeshKit/Pods-MeshKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		82F5C3571C6CE34A002E72E3 /* Sources */ = {
@@ -149,6 +231,7 @@
 				82F5C3611C6CE34A002E72E3 /* GameScene.swift in Sources */,
 				82F5C35F1C6CE34A002E72E3 /* AppDelegate.swift in Sources */,
 				82F5C3741C6D3AEC002E72E3 /* MeshPath.swift in Sources */,
+				82C619F51C6E5F3300A3089C /* ConfigurationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +331,7 @@
 		};
 		82F5C36D1C6CE34A002E72E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA2CFD56C941E356F5115140 /* Pods-MeshKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -260,6 +344,7 @@
 		};
 		82F5C36E1C6CE34A002E72E3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEA205232624BF7E2545771B /* Pods-MeshKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -289,6 +374,7 @@
 				82F5C36E1C6CE34A002E72E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

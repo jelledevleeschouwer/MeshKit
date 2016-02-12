@@ -7,10 +7,13 @@
 //
 
 import SpriteKit
+import ORSSerial
 
 var nodeCount = 1
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    internal let color = NSColor(red: 0.7002, green: 0.8241, blue: 0.031, alpha: 1.0)
+    
     var nodes: NSMutableArray = [];
     var paths: NSMutableArray = [];
     
@@ -20,6 +23,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         nodeCount = nodeCount + 1
     }
     
+    func addGravity() {
+        addNode(withID: 0);
+    }
+    
     func addNode(withID id: Int) {
         let node = MeshNode(withID: id)
     
@@ -27,25 +34,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         nodes.addObject(node)
         
         /* Set position */
-        if (id == 1) {
-            node.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        } else {
+        if (id > 1) {
+            /* For plain nodes, generate a random position */
             node.position = randPosition()
+        } else {
+            /* Put the 6LBR and the gravity node in the center of the screen */
+            node.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         }
         node.setScale(0.1)
         
         node.addNeighbour(MeshNode.getNode(withID: nodeCount - 1, fromArray: nodes))
         if let lbr = MeshNode.getNode(withID: nodeCount - 1, fromArray: nodes) {
-            addPath(from: node, to:lbr)
+            addPath(from: node, to:lbr, withColor: color)
         }
         
         /* Add the node to the scene */
         self.addChild(node)
     }
     
+    
+    
     /* Add a path from one node to another */
-    func addPath(from node: MeshNode, to neighbour: MeshNode) {
-        let path = node.createPath(toNeighbour: neighbour)
+    func addPath(from node: MeshNode, to neighbour: MeshNode, withColor color: NSColor) {
+        let path = node.createPath(toNeighbour: neighbour, withColor: color)
         paths.addObject(path)
         self.addChild(path)
     }
@@ -70,8 +81,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         /* Called before each frame is rendered */
         for value in nodes {
             if let node = value as? MeshNode {
-                /* Don't apply forces on the central node */
-                if (node.id != 1) {
+                /* Don't apply forces on the central node or on the gravity node */
+                if (node.id > 1) {
                     node.applyForces(nodes)
                 }
             }
@@ -86,15 +97,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Avenir Next")
-        myLabel.text = "6LoWPAN demo"
-        myLabel.fontSize = 24
-        myLabel.position = CGPoint(x:CGRectGetMaxX(self.frame) - (myLabel.frame.width / 2 + 10), y:CGRectGetMinX(self.frame) + myLabel.fontSize * 3.5)
-        self.addChild(myLabel)
-        
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
         
         self.backgroundColor = NSColor.darkGrayColor()
     }
+    
+    
 }

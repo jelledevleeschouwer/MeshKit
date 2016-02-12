@@ -12,6 +12,7 @@ import SpriteKit
 let ATTRACTION: CGFloat  = 70
 let REPULSION: CGFloat   = ATTRACTION * 100
 let GENERAL_REP: CGFloat = ATTRACTION * 20
+let GRAVITY: CGFloat     = ATTRACTION * 10
 
 class MeshNode: SKSpriteNode {
     var neighbours: NSMutableArray = []
@@ -48,8 +49,8 @@ class MeshNode: SKSpriteNode {
         }
     }
     
-    func createPath(toNeighbour n:MeshNode) -> MeshPath {
-        return MeshPath(from: self, toNeighbour: n)
+    func createPath(toNeighbour n:MeshNode, withColor color: NSColor) -> MeshPath {
+        return MeshPath(from: self, toNeighbour: n, withColor: color)
     }
     
     /*********************
@@ -79,7 +80,7 @@ class MeshNode: SKSpriteNode {
                     
                     /* Do apply the force */
                     force = VectorMath.addVector(v, toVector: force)
-                } else if (self.id != node.id) {
+                } else if (self.id != node.id && node.id != 0) {
                     /* Apply a force between this node and it's neighbour that pushes
                     * the node away from it's neighbour */
                     v = VectorMath.createVector(between: self, and: node)
@@ -87,6 +88,13 @@ class MeshNode: SKSpriteNode {
                     v = VectorMath.negate(v);
                     
                     /* Do apply the force */
+                    force = VectorMath.addVector(v, toVector: force)
+                } else if (node.id == 0) {
+                    /* Apply a gravitational force between this node and the center 
+                     * of the mesh */
+                    v = VectorMath.multiplyVector(v, with: GRAVITY)
+                    
+                    /* Do apply gravitational force */
                     force = VectorMath.addVector(v, toVector: force)
                 }
             }

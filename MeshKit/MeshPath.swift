@@ -41,7 +41,7 @@ class MeshPath: SKShapeNode {
     /*********************
     *  INITIALISATION
      *********************/
-    init(from node: MeshNode, toNeighbour neighbour: MeshNode) {
+    init(from node: MeshNode, toNeighbour neighbour: MeshNode, withColor color: NSColor) {
         self.node = node
         self.neighbour = neighbour
         self.meshPath = CGPathCreateMutable();
@@ -51,7 +51,7 @@ class MeshPath: SKShapeNode {
         CGPathMoveToPoint(self.meshPath, nil, self.node.position.x, self.node.position.y)
         CGPathAddLineToPoint(self.meshPath, nil, self.neighbour.position.x, self.neighbour.position.y)
         self.path = self.meshPath
-        self.strokeColor = NSColor(red: 0.75, green: 0.84, blue: 0.00, alpha: 1.00)
+        self.strokeColor = color
         self.lineWidth = 2.0
     }
     
