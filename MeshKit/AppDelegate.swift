@@ -9,46 +9,39 @@
 
 import Cocoa
 import SpriteKit
+import ORSSerial
+
+protocol ConfigurationViewControllerDelegate {
+    var portPath: String { get set }
+    var portState: String { get }
+    var baudRate: UInt32 { get set }
+    
+    func connect() -> Int
+    func disconnect() -> Int
+    func availablePorts() -> [ORSSerialPort]
+}
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, ConfigurationViewControllerDelegate, ORSSerialPortDelegate {
     
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var skView: SKView!
     @IBOutlet weak var configure: NSButton!
     @IBOutlet weak var title: NSTextField!
     
-    let configurationViewController = NSViewController(nibName: "ConfigurationViewController", bundle: nil)
-    var detachedWindow: NSWindow
-    var detachedHUDWindow: NSPanel
-    var popOver: NSPopover
+    internal var configurationViewController = ConfigurationViewController(nibName: "ConfigurationViewController", bundle: nil)
+    internal var detachedWindow: NSWindow
+    internal var detachedHUDWindow: NSPanel
+    internal var popOver: NSPopover
     
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
-        /* Pick a size for the scene */
-        
-        if let scene = GameScene(fileNamed:"GameScene") {
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
-            
-            /* */
-            self.configure.wantsLayer = true
-            self.title.wantsLayer = true
-            
-            self.skView!.presentScene(scene)
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            self.skView!.ignoresSiblingOrder = true
-            
-            self.skView!.showsFPS = true
-            self.skView!.showsNodeCount = true
-            //self.skView!.showsPhysics = true
-        }
-    }
+    var portPath: String = ""
+    var portState: String = ""
+    var baudRate: UInt32 = 115200
+    internal var serialPort: ORSSerialPort? = nil
     
-    func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool {
-        return true
-    }
-    
+    /*********************
+     *  ACTIONS
+     *********************/
     @IBAction func configure(sender: AnyObject) {
         if (detachedHUDWindow.visible == true) {
             detachedHUDWindow.close()
@@ -65,8 +58,81 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         popOver.showRelativeToRect(targetButton.bounds, ofView: sender as! NSView, preferredEdge: edge)
     }
     
+    /*********************
+     *  CUSTOM DELEGATION
+     *********************/
+    func connect() -> Int {
+        serialPort = ORSSerialPort(path: portPath)
+        if let _ = serialPort {
+            serialPort!.baudRate = NSNumber(unsignedInt: baudRate)
+            serialPort!.delegate = self
+            serialPort!.open()
+            portState = "Connected"
+            return 0
+        }
+        portState = "Connect failed"
+        return -1
+    }
+    
+    func disconnect() -> Int {
+        if let _ = serialPort {
+            if serialPort!.close() {
+                portState = "Disconnect"
+                serialPort = nil
+                return 0
+            }
+        }
+        portState = "Disconnect failed"
+        return -1
+    }
+    
+    func serialPortWasRemovedFromSystem(serialPort: ORSSerialPort) {
+        portState = "Port removed"
+        self.serialPort = nil
+    }
+    
+    func serialPort(serialPort: ORSSerialPort, didReceiveData data: NSData) {
+        let received = NSString(data: data, encoding: NSUTF8StringEncoding)
+        print("Received")
+        print(received)
+    }
+    
+    func availablePorts() -> [ORSSerialPort] {
+        return ORSSerialPortManager.sharedSerialPortManager().availablePorts
+    }
+    
+    /*********************
+     *  UI
+     *********************/
     func popoverShouldDetach(popover: NSPopover) -> Bool {
         return true
+    }
+    
+    /*********************
+     *  INITIALISATION
+     *********************/
+    func applicationDidFinishLaunching(aNotification: NSNotification) {
+        /* Pick a size for the scene */
+        
+        if let scene = GameScene(fileNamed:"GameScene") {
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            
+            /* XXX Display AppKit widgets on top of skView */
+            self.configure.wantsLayer = true
+            self.title.wantsLayer = true
+            
+            /* Present SpriteKit Scene */
+            self.skView!.presentScene(scene)
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            self.skView!.ignoresSiblingOrder = true
+            
+            /* DEBUG SpriteKit */
+            self.skView!.showsFPS = true
+            self.skView!.showsNodeCount = true
+            //self.skView!.showsPhysics = true
+        }
     }
     
     override init() {
@@ -83,13 +149,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         detachedHUDWindow.releasedWhenClosed = false
         
         popOver = NSPopover()
-        
-        super.init()
-        
         popOver.contentViewController = configurationViewController
-        popOver.appearance = NSAppearance(appearanceNamed: NSAppearanceNameVibrantLight, bundle: nil)
+        popOver.appearance = NSAppearance(named: NSAppearanceNameVibrantLight)
         popOver.animates = true
         popOver.behavior = NSPopoverBehavior.Transient
+        
+        /* Have to initialise superclass before we can set the NSPopoverDelegate*/
+        super.init()
         popOver.delegate = self
+        
+        /* Set ConfigurationViewControllerDelegate */
+        configurationViewController!.portDelegate = self
+    }
+    
+    func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool {
+        return true
     }
 }

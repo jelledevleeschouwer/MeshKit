@@ -52,8 +52,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(node)
     }
     
-    
-    
     /* Add a path from one node to another */
     func addPath(from node: MeshNode, to neighbour: MeshNode, withColor color: NSColor) {
         let path = node.createPath(toNeighbour: neighbour, withColor: color)
@@ -100,7 +98,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
         
-        self.backgroundColor = NSColor.darkGrayColor()
+        self.backgroundColor = NSColor(red: 0.5803, green: 0.5514, blue: 0.5172, alpha: 1.0)
     }
     
     
