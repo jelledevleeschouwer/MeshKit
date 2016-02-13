@@ -14,6 +14,10 @@ class MeshPath: SKShapeNode {
     var node: MeshNode
     var neighbour: MeshNode
     
+    override var description: String {
+        return "Path from \(node.id) to \(neighbour.id)"
+    }
+    
     /*********************
      *  MESH
      *********************/
@@ -27,15 +31,84 @@ class MeshPath: SKShapeNode {
     /*********************
      *  CLASS FUNCTIONS
      *********************/
-    class func getPath(fromNodeWithID nodeID: Int, toNodeWithID neighID: Int, fromArray array: NSArray) -> MeshPath? {
-        for value in array {
-            if let path = value as? MeshPath {
-                if (path.neighbour.id == neighID && path.node.id == nodeID) {
-                    return path
-                }
+    class func findPath(fromNodeWithID nodeID: UInt8, toNodeWithID neighID: UInt8, inArray array: [MeshPath]) -> MeshPath? {
+        for path in array {
+            if (path.neighbour.id == neighID && path.node.id == nodeID) {
+                return path
             }
         }
         return nil
+    }
+    
+    class func findPaths(fromNodeWithID id: UInt8, inArray array: [MeshPath]) -> [MeshPath] {
+        var ret: [MeshPath] = []
+        
+        for path in array {
+            if (path.node.id == id || path.neighbour.id == id) {
+                ret.append(path)
+            }
+        }
+        
+        return ret
+    }
+    
+    class func findIndexOfPath(fromNodeWithID nodeID: UInt8, toNodeWithID neighID: UInt8, inArray array: [MeshPath]) -> Int {
+        for path in array {
+            if ((path.node.id == nodeID && path.neighbour.id == neighID) || (path.node.id == neighID && path.neighbour.id == nodeID)) {
+                return array.indexOf(path)!
+            }
+        }
+        
+        return -1
+    }
+    
+    class func delPath(fromNodeWithID nodeID: UInt8, toNodeWithID neighID: UInt8, var fromArray array: [MeshPath]) -> ([MeshPath], MeshPath?) {
+        let index = findIndexOfPath(fromNodeWithID: nodeID, toNodeWithID: neighID, inArray: array)
+        
+        if (index < 0) {
+            return (array, nil)
+        }
+        
+        let del = array.removeAtIndex(index)
+        
+        return (array, del)
+    }
+    
+    class func delPaths(fromNode node: MeshNode, toNodes nodes: [MeshNode], var fromArray array: [MeshPath]) -> ([MeshPath], [MeshPath]) {
+        var deleted: [MeshPath] = []
+        
+        for neigh in nodes {
+            let (narray, del) = delPath(fromNodeWithID: node.id, toNodeWithID: neigh.id, fromArray: array)
+            if (del != nil) {
+                array = narray
+                deleted.append(del!)
+            }
+        }
+        
+        return (array, deleted)
+    }
+    
+    class func delPaths(fromNodeWithID id: UInt8, var fromArray array: [MeshPath]) -> [MeshPath] {
+        for path in array {
+            if (path.node.id == id || path.neighbour.id == id) {
+                array.removeAtIndex(array.indexOf(path)!)
+            }
+        }
+        
+        return array
+    }
+    
+    class func addPath(from node: MeshNode, to neigh: MeshNode, withColor color: NSColor, var toArray array: [MeshPath]) -> ([MeshPath], MeshPath?) {
+        if let _ = MeshPath.findPath(fromNodeWithID: node.id, toNodeWithID: neigh.id, inArray: array) {
+            /* Path already exists */
+        } else {
+            /* Create new path and add to array */
+            let new = MeshPath(from: node, toNeighbour: neigh, withColor: color)
+            array.append(new)
+            return (array, new)
+        }
+        
+        return (array, nil)
     }
     
     /*********************

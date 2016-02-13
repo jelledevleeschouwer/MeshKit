@@ -22,7 +22,7 @@ protocol ConfigurationViewControllerDelegate {
 }
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, ConfigurationViewControllerDelegate, ORSSerialPortDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowDelegate, ConfigurationViewControllerDelegate, ORSSerialPortDelegate {
     
     @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var skView: SKView!
@@ -33,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, Configura
     internal var detachedWindow: NSWindow
     internal var detachedHUDWindow: NSPanel
     internal var popOver: NSPopover
+    internal var mainScene: GameScene? = nil
     
     var portPath: String = ""
     var portState: String = ""
@@ -73,6 +74,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, Configura
         portState = "Connect failed"
         return -1
     }
+    
+    
     
     func disconnect() -> Int {
         if let _ = serialPort {
@@ -116,7 +119,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, Configura
         
         if let scene = GameScene(fileNamed:"GameScene") {
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .AspectFit
+            scene.size = skView.frame.size
+            
+            mainScene = scene
+            
+            if let w = NSApplication.sharedApplication().keyWindow {
+                w.delegate = self
+            }
             
             /* XXX Display AppKit widgets on top of skView */
             self.configure.wantsLayer = true
@@ -164,5 +174,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, Configura
     
     func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool {
         return true
+    }
+    
+    func windowDidResize(notification: NSNotification) {
+        if let scene = mainScene {
+            if let w = NSApplication.sharedApplication().keyWindow {
+                scene.updateBordsers(w.frame)
+            }
+        }
     }
 }

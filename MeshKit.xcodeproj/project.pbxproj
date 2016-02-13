@@ -89,11 +89,11 @@
 			isa = PBXGroup;
 			children = (
 				82F5C35E1C6CE34A002E72E3 /* AppDelegate.swift */,
-				82C619F31C6E5F3300A3089C /* ConfigurationViewController.swift */,
 				82F5C3601C6CE34A002E72E3 /* GameScene.swift */,
 				82F5C36F1C6CE419002E72E3 /* MeshNode.swift */,
 				82F5C3731C6D3AEC002E72E3 /* MeshPath.swift */,
 				82F5C3711C6CF760002E72E3 /* VectorMath.swift */,
+				82C619F31C6E5F3300A3089C /* ConfigurationViewController.swift */,
 				82F5C3621C6CE34A002E72E3 /* GameScene.sks */,
 				82F5C3641C6CE34A002E72E3 /* Assets.xcassets */,
 				82C619F41C6E5F3300A3089C /* ConfigurationViewController.xib */,
