@@ -28,6 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
     @IBOutlet weak var skView: SKView!
     @IBOutlet weak var configure: NSButton!
     @IBOutlet weak var title: NSTextField!
+    @IBOutlet weak var mainView: NSView!
     
     internal var configurationViewController = ConfigurationViewController(nibName: "ConfigurationViewController", bundle: nil)
     internal var detachedWindow: NSWindow
@@ -118,15 +119,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         /* Pick a size for the scene */
         
         if let scene = GameScene(fileNamed:"GameScene") {
+            /* Set window size */
+            if let w = self.window {
+                w.setFrame(CGRectMake(0, 0, NSScreen.mainScreen()!.frame.width, NSScreen.mainScreen()!.frame.height), display: true)
+                w.contentAspectRatio = w.frame.size
+                w.makeKeyAndOrderFront(self)
+            }
+            
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFit
+            
+            skView.frame.size = self.window.frame.size
             scene.size = skView.frame.size
             
             mainScene = scene
-            
-            if let w = NSApplication.sharedApplication().keyWindow {
-                w.delegate = self
-            }
             
             /* XXX Display AppKit widgets on top of skView */
             self.configure.wantsLayer = true
@@ -168,19 +174,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         super.init()
         popOver.delegate = self
         
-        /* Set ConfigurationViewControllerDelegate */
-        configurationViewController!.portDelegate = self
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "screenResize:", name: NSWindowDidResizeNotification, object: nil)
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool {
         return true
     }
     
-    func windowDidResize(notification: NSNotification) {
+    func screenResize(notification: NSNotification) {
         if let scene = mainScene {
-            if let w = NSApplication.sharedApplication().keyWindow {
-                scene.updateBordsers(w.frame)
-            }
+            scene.updateBorders()
         }
     }
 }

@@ -122,11 +122,11 @@
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="cOG-zc-4OK">
-                        <rect key="frame" x="1" y="45" width="438" height="16"/>
+                        <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="c2G-5p-x3V">
-                        <rect key="frame" x="224" y="17" width="15" height="102"/>
+                        <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
@@ -150,7 +150,7 @@
                                 <menuItem title="38400" id="ALR-Us-1hD"/>
                                 <menuItem title="56000" id="EUF-tb-Qgh"/>
                                 <menuItem title="57600" id="7IX-vm-SEo"/>
-                                <menuItem title="115200" state="on" id="UIy-kc-dAX"/>
+                                <menuItem title="115200" id="UIy-kc-dAX"/>
                             </items>
                         </menu>
                     </popUpButtonCell>

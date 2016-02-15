@@ -6,6 +6,7 @@
 //  Copyright (c) 2016 Jelle De Vleeschouwer. All rights reserved.
 //
 
+import Cocoa
 import SpriteKit
 import ORSSerial
 
@@ -175,21 +176,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
+        updateBorders()
         
-        let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
-        borderBody.friction = 0
-        self.physicsBody = borderBody
         self.physicsBody?.categoryBitMask = 2
         
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
         
-        self.backgroundColor = NSColor(red: 0.5803, green: 0.5514, blue: 0.5172, alpha: 1.0)
+        //self.backgroundColor = NSColor(red: 0.5803, green: 0.5514, blue: 0.5172, alpha: 1.0)
+        self.backgroundColor = NSColor.whiteColor()
+        
+        NSScreen.mainScreen()!.frame
         
         addGravity()
     }
     
-    func updateBordsers(frame: CGRect) {
+    func updateBorders() {
         let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
         borderBody.friction = 0
         self.physicsBody = borderBody

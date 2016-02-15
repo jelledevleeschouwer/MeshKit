@@ -184,7 +184,7 @@ class MeshNode: SKSpriteNode {
                 } else {
                     /* Apply a gravitational force between this node and the center
                     * of the mesh */
-                    //v = VectorMath.multiplyVector(v, with: GRAVITY / )
+                    v = VectorMath.multiplyVector(v, with: GRAVITY / 10)
                 }
                 
                 /* Do apply gravitational force */

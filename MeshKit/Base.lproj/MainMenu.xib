@@ -101,59 +101,60 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="MeshKit" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
+        <window title="MeshKit" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
-            <rect key="contentRect" x="0.0" y="0.0" width="800" height="600"/>
+            <rect key="contentRect" x="0.0" y="0.0" width="982" height="713"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                <rect key="frame" x="0.0" y="0.0" width="982" height="713"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="539" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="AxC-bx-P6o" userLabel="skView" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="982" height="713"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B54-tL-CGH">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gsJ-4b-W98">
                                 <rect key="frame" x="14" y="13" width="100" height="32"/>
-                                <buttonCell key="cell" type="push" title="Configure" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LbA-qE-ktv">
+                                <buttonCell key="cell" type="push" title="Configure" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="owM-6Y-gLZ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="configure:" target="494" id="Ido-eo-h4x"/>
+                                    <action selector="configure:" target="494" id="zDq-vg-WQy"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rud-xl-xYE">
-                                <rect key="frame" x="676" y="20" width="106" height="35"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="MeshKit" id="J0t-2A-IhZ">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Md9-hy-lJS">
+                                <rect key="frame" x="858" y="20" width="106" height="35"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="MeshKit" id="YCr-l4-hgg">
                                     <font key="font" size="24" name="Menlo-Regular"/>
-                                    <color key="textColor" red="0.74901960784313726" green="0.84313725490196079" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.74901960779999999" green="0.84313725490000002" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="rud-xl-xYE" secondAttribute="trailing" constant="20" id="2JI-b6-UUI"/>
-                            <constraint firstItem="B54-tL-CGH" firstAttribute="leading" secondItem="539" secondAttribute="leading" constant="20" id="8ql-t0-G4E"/>
-                            <constraint firstAttribute="bottom" secondItem="rud-xl-xYE" secondAttribute="bottom" constant="20" id="Vsf-EO-ccc"/>
-                            <constraint firstAttribute="bottom" secondItem="B54-tL-CGH" secondAttribute="bottom" constant="20" id="uVK-EB-f11"/>
+                            <constraint firstAttribute="bottom" secondItem="gsJ-4b-W98" secondAttribute="bottom" constant="20" id="5cY-Ym-biZ"/>
+                            <constraint firstItem="gsJ-4b-W98" firstAttribute="leading" secondItem="AxC-bx-P6o" secondAttribute="leading" constant="20" id="6X6-sE-Zi3"/>
+                            <constraint firstAttribute="trailing" secondItem="Md9-hy-lJS" secondAttribute="trailing" constant="20" id="AMh-oh-TOr"/>
+                            <constraint firstAttribute="bottom" secondItem="Md9-hy-lJS" secondAttribute="bottom" constant="20" id="QKe-XZ-Q2s"/>
                         </constraints>
                     </customView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="539" secondAttribute="bottom" id="6sP-XR-JiW"/>
-                    <constraint firstAttribute="trailing" secondItem="539" secondAttribute="trailing" id="POm-gY-xJ1"/>
-                    <constraint firstItem="539" firstAttribute="top" secondItem="372" secondAttribute="top" id="hxn-98-3cF"/>
-                    <constraint firstItem="539" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="jDI-ni-h2Z"/>
+                    <constraint firstItem="AxC-bx-P6o" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="2WQ-R1-FgW"/>
+                    <constraint firstAttribute="bottom" secondItem="AxC-bx-P6o" secondAttribute="bottom" id="EDD-XJ-W3w"/>
+                    <constraint firstItem="AxC-bx-P6o" firstAttribute="top" secondItem="372" secondAttribute="top" id="I25-pG-2Rn"/>
+                    <constraint firstAttribute="trailing" secondItem="AxC-bx-P6o" secondAttribute="trailing" id="YRJ-8T-ZTy"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="309" y="430"/>
+            <point key="canvasLocation" x="400" y="486.5"/>
         </window>
         <customObject id="494" customClass="AppDelegate" customModule="MeshKit" customModuleProvider="target">
             <connections>
-                <outlet property="configure" destination="B54-tL-CGH" id="y5P-2h-D9x"/>
-                <outlet property="skView" destination="539" id="540"/>
-                <outlet property="title" destination="rud-xl-xYE" id="Ayy-CT-9HJ"/>
+                <outlet property="configure" destination="gsJ-4b-W98" id="UuR-Nf-Vv6"/>
+                <outlet property="mainView" destination="372" id="SA1-wB-do0"/>
+                <outlet property="skView" destination="AxC-bx-P6o" id="4bI-zI-K3V"/>
+                <outlet property="title" destination="Md9-hy-lJS" id="HbW-Bm-W6T"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
