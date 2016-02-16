@@ -48,6 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func mouseDown(theEvent: NSEvent) {
         /* Called when a mouse click occurs */
         
+        /*
         switch(count) {
         case 0:
             parseNeighbourList("001 002")
@@ -79,8 +80,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             parseNeighbourList("")
             /* Do nothing */
         }
+
         
         count++
+*/
     }
     
     func addGravity() {

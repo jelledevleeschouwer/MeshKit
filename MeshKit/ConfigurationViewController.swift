@@ -95,16 +95,12 @@ class ConfigurationViewController: NSViewController, NSTableViewDataSource, NSTa
     
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         if let _ = portDelegate {
-            print("table count")
             return portDelegate!.availablePorts().count
-        } else {
-            print("table count")
         }
         return 0
     }
 
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
-        print("table count")
         if let _ = portDelegate {
             if row < portDelegate!.availablePorts().count {
                 let port = portDelegate!.availablePorts()[row]

@@ -38,7 +38,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
     var portPath: String = ""
     var portState: String = ""
     var baudRate: UInt32 = 115200
+    var buffer: String = ""
     internal var serialPort: ORSSerialPort? = nil
+    internal let logFile = "MeshKit.log"
     
     /*********************
      *  ACTIONS
@@ -93,9 +95,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
     }
     
     func serialPort(serialPort: ORSSerialPort, didReceiveData data: NSData) {
-        let received = NSString(data: data, encoding: NSUTF8StringEncoding)
-        print("Received")
-        print(received)
+        if let recv = String(data: data, encoding: NSUTF8StringEncoding) {
+            buffer.appendContentsOf(recv)
+            
+            let (sub, ndata) = popFirst(buffer)
+            if let msg = sub {
+                
+                /* Let the buffer contain the rest of the Data */
+                buffer = ndata
+                
+                print(msg)
+                
+                /* Parse UART message */
+                if let scene = mainScene {
+                    scene.parseNeighbourList(msg)
+                }
+            }
+        }
     }
     
     func availablePorts() -> [ORSSerialPort] {
@@ -147,6 +163,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
             //self.skView!.showsPhysics = true
         }
     }
+    
+    func popFirst(data: String) -> (String?, String) {
+        if let index = data.characters.indexOf("\r\n") {
+            return (data.substringToIndex(index), data.substringFromIndex(index.advancedBy(1)))
+        } else {
+            return (nil, data)
+        }
+    }
+    
     
     override init() {
         let frame = configurationViewController!.view.bounds
