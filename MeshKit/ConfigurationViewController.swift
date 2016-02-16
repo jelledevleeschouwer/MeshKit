@@ -27,19 +27,19 @@ class ConfigurationViewController: NSViewController, NSTableViewDataSource, NSTa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        portTable.setDataSource(self)
+        portTable.setDelegate(self)
         
         // Do view setup here.
         if let dele = portDelegate {
             stateLabel.stringValue = dele.portState
             stateLabel.needsDisplay = true
         }
-        
-        portTable.setDataSource(self)
-        portTable.setDelegate(self)
-        
         /* On first display, disable disconnect */
         disconnectBtn.enabled = false
         
+        /* Select 115200 */
         baudRates.selectItemAtIndex(baudRates.itemArray.count - 1)
     }
     
@@ -95,12 +95,16 @@ class ConfigurationViewController: NSViewController, NSTableViewDataSource, NSTa
     
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         if let _ = portDelegate {
+            print("table count")
             return portDelegate!.availablePorts().count
+        } else {
+            print("table count")
         }
         return 0
     }
 
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+        print("table count")
         if let _ = portDelegate {
             if row < portDelegate!.availablePorts().count {
                 let port = portDelegate!.availablePorts()[row]

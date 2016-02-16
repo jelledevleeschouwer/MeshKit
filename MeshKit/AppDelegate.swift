@@ -28,7 +28,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
     @IBOutlet weak var skView: SKView!
     @IBOutlet weak var configure: NSButton!
     @IBOutlet weak var title: NSTextField!
-    @IBOutlet weak var mainView: NSView!
     
     internal var configurationViewController = ConfigurationViewController(nibName: "ConfigurationViewController", bundle: nil)
     internal var detachedWindow: NSWindow
@@ -75,8 +74,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         portState = "Connect failed"
         return -1
     }
-    
-    
     
     func disconnect() -> Int {
         if let _ = serialPort {
@@ -163,7 +160,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         detachedHUDWindow = NSPanel(contentRect: rect, styleMask: styleMask, backing: NSBackingStoreType.Buffered , `defer`: true)
         detachedHUDWindow.contentViewController = configurationViewController
         detachedHUDWindow.releasedWhenClosed = false
-        
         popOver = NSPopover()
         popOver.contentViewController = configurationViewController
         popOver.appearance = NSAppearance(named: NSAppearanceNameVibrantLight)
@@ -173,6 +169,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         /* Have to initialise superclass before we can set the NSPopoverDelegate*/
         super.init()
         popOver.delegate = self
+        
+        let ports = ORSSerialPortManager.sharedSerialPortManager().availablePorts
+        for port in ports {
+            print(port.name)
+        }
+        
+        configurationViewController?.portDelegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "screenResize:", name: NSWindowDidResizeNotification, object: nil)
     }

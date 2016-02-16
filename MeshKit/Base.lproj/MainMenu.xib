@@ -152,7 +152,6 @@
         <customObject id="494" customClass="AppDelegate" customModule="MeshKit" customModuleProvider="target">
             <connections>
                 <outlet property="configure" destination="gsJ-4b-W98" id="UuR-Nf-Vv6"/>
-                <outlet property="mainView" destination="372" id="SA1-wB-do0"/>
                 <outlet property="skView" destination="AxC-bx-P6o" id="4bI-zI-K3V"/>
                 <outlet property="title" destination="Md9-hy-lJS" id="HbW-Bm-W6T"/>
                 <outlet property="window" destination="371" id="532"/>
