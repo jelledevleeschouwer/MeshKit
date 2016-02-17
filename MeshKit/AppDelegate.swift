@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
     var baudRate: UInt32 = 115200
     var buffer: String = ""
     internal var serialPort: ORSSerialPort? = nil
-    internal let logFile = "MeshKit.log"
+    internal let location = NSString(string:"~/Desktop/MeshKit.log").stringByExpandingTildeInPath
     
     /*********************
      *  ACTIONS
@@ -62,7 +62,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
     }
     
     /*********************
-     *  CUSTOM DELEGATION
+     *  HELPER METHODS
      *********************/
     func connect() -> Int {
         serialPort = ORSSerialPort(path: portPath)
@@ -89,13 +89,47 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         return -1
     }
     
+    func createFile(path: String) -> Bool {
+        do {
+            let _ = try NSString().writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding)
+            return false
+        } catch {
+            print("Failed creating file")
+            return true
+        }
+    }
+    
+    func append(text msg: String, toFileAtPath path: String) -> Bool {
+        if let fileHandle = NSFileHandle(forWritingAtPath: path) {
+            if let data = msg.dataUsingEncoding(NSUTF8StringEncoding) {
+                defer {
+                    fileHandle.closeFile()
+                }
+                fileHandle.seekToEndOfFile()
+                fileHandle.writeData(data)
+                fileHandle.closeFile()
+                return false
+            }
+        }
+        return true
+    }
+    
+    /*********************
+     *  CUSTOM DELEGATION
+     *********************/
     func serialPortWasRemovedFromSystem(serialPort: ORSSerialPort) {
         portState = "Port removed"
         self.serialPort = nil
     }
     
+    var first = true
     func serialPort(serialPort: ORSSerialPort, didReceiveData data: NSData) {
         if let recv = String(data: data, encoding: NSUTF8StringEncoding) {
+            if !first {
+                buffer.appendContentsOf("\r\n")
+            } else {
+                first = false
+            }
             buffer.appendContentsOf(recv)
             
             let (sub, ndata) = popFirst(buffer)
@@ -104,7 +138,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
                 /* Let the buffer contain the rest of the Data */
                 buffer = ndata
                 
-                print(msg)
+                /* Write received data to log-file */
+                var log = msg
+                log.appendContentsOf("\r\n")
+                append(text: log, toFileAtPath: location)
                 
                 /* Parse UART message */
                 if let scene = mainScene {
@@ -172,7 +209,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         }
     }
     
-    
     override init() {
         let frame = configurationViewController!.view.bounds
         var styleMask = NSTitledWindowMask + NSClosableWindowMask
@@ -199,6 +235,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         for port in ports {
             print(port.name)
         }
+        
+        /* Create a log-file */
+        createFile(location)
         
         configurationViewController?.portDelegate = self
         
