@@ -102,9 +102,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
     func append(text msg: String, toFileAtPath path: String) -> Bool {
         if let fileHandle = NSFileHandle(forWritingAtPath: path) {
             if let data = msg.dataUsingEncoding(NSUTF8StringEncoding) {
-                defer {
-                    fileHandle.closeFile()
-                }
                 fileHandle.seekToEndOfFile()
                 fileHandle.writeData(data)
                 fileHandle.closeFile()
