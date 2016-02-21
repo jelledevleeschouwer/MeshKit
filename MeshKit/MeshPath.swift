@@ -78,7 +78,14 @@ class MeshPath: SKShapeNode {
         var deleted: [MeshPath] = []
         
         for neigh in nodes {
-            let (narray, del) = delPath(fromNodeWithID: node.id, toNodeWithID: neigh.id, fromArray: array)
+            var (narray, del) = delPath(fromNodeWithID: node.id, toNodeWithID: neigh.id, fromArray: array)
+            if (del != nil) {
+                array = narray
+                deleted.append(del!)
+            }
+            
+            // Also delete the possible reverse path
+            (narray, del) = delPath(fromNodeWithID: neigh.id, toNodeWithID: node.id, fromArray: array)
             if (del != nil) {
                 array = narray
                 deleted.append(del!)
