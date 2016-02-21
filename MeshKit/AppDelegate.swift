@@ -67,9 +67,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
     func connect() -> Int {
         serialPort = ORSSerialPort(path: portPath)
         if let _ = serialPort {
-            serialPort!.baudRate = NSNumber(unsignedInt: baudRate)
             serialPort!.delegate = self
             serialPort!.open()
+            serialPort!.baudRate = NSNumber(unsignedInt: baudRate)
+            serialPort!.DTR = true // This is needed. Else we won't receive any data from the xplained boards
             portState = "Connected"
             return 0
         }
