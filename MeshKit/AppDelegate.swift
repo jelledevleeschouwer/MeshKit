@@ -120,33 +120,34 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         self.serialPort = nil
     }
     
-    var first = true
     func serialPort(serialPort: ORSSerialPort, didReceiveData data: NSData) {
         if let recv = String(data: data, encoding: NSUTF8StringEncoding) {
-            if !first {
-                buffer.appendContentsOf("\r\n")
-            } else {
-                first = false
-            }
+
             buffer.appendContentsOf(recv)
             
-            let (sub, ndata) = popFirst(buffer)
-            if let msg = sub {
+            // Routing tables are terminated by \r\n.
+            let offset = buffer.rangeOfString("\r\n")
+            if (offset != nil) {
+                var rtable: String = ""
                 
-                /* Let the buffer contain the rest of the Data */
-                buffer = ndata
+                rtable = buffer.substringToIndex((offset?.startIndex)!)
                 
-                /* Write received data to log-file */
-                var log = msg
-                log.appendContentsOf("\r\n")
-                append(text: log, toFileAtPath: location)
+                buffer = buffer.substringFromIndex((offset?.endIndex)!)
+                
+                // Sometimes nodes don't add 1 in their routing update
+                // but since 1 is receiving their routing tables, let's
+                // add it anyway
+                rtable.appendContentsOf("1")
+                
+                print(rtable)
                 
                 /* Parse UART message */
                 if let scene = mainScene {
-                    scene.parseNeighbourList(msg)
+                    scene.parseNeighbourList(rtable)
                 }
             }
         }
+
     }
     
     func availablePorts() -> [ORSSerialPort] {
