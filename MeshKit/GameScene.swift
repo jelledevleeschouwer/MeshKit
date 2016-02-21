@@ -48,14 +48,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func mouseDown(theEvent: NSEvent) {
         /* Called when a mouse click occurs */
         
-        /*
+        
         switch(count) {
         case 0:
             parseNeighbourList("001 002")
         case 1:
             parseNeighbourList("002 001")
         case 2:
-            parseNeighbourList("003")
+            parseNeighbourList("001 002")
         case 3:
             parseNeighbourList("003 002 001")
         case 4:
@@ -83,7 +83,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         
         count++
-*/
+
     }
     
     func addGravity() {
@@ -186,8 +186,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
         
-        //self.backgroundColor = NSColor(red: 0.5803, green: 0.5514, blue: 0.5172, alpha: 1.0)
-        self.backgroundColor = NSColor.whiteColor()
+        self.backgroundColor = NSColor(red: 0.5803, green: 0.5514, blue: 0.5172, alpha: 1.0)
+        //self.backgroundColor = NSColor.whiteColor()
         
         NSScreen.mainScreen()!.frame
         
