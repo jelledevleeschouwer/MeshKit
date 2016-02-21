@@ -35,6 +35,8 @@ class MeshPath: SKShapeNode {
         for path in array {
             if (path.neighbour.id == neighID && path.node.id == nodeID) {
                 return path
+            } else if (path.neighbour.id == nodeID && path.node.id == neighID) {
+                return path
             }
         }
         return nil
@@ -79,13 +81,6 @@ class MeshPath: SKShapeNode {
         
         for neigh in nodes {
             var (narray, del) = delPath(fromNodeWithID: node.id, toNodeWithID: neigh.id, fromArray: array)
-            if (del != nil) {
-                array = narray
-                deleted.append(del!)
-            }
-            
-            // Also delete the possible reverse path
-            (narray, del) = delPath(fromNodeWithID: neigh.id, toNodeWithID: node.id, fromArray: array)
             if (del != nil) {
                 array = narray
                 deleted.append(del!)
