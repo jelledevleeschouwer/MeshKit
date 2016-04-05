@@ -12,9 +12,13 @@ import ORSSerial
 
 var nodeCount: UInt8 = 1
 
-/********************************
- *  SET THIS VALUE TO
- ********************************/
+/****************************************************************
+ *  SET THIS VALUE TO false IF YOU WANT TO DISABLE DATA PARSING
+ *  
+ *  !!! Only do this with the UART-communication on, otherwise
+ *  the simulation data will no longer be correct
+ ****************************************************************/
+var enable_data = true
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     internal let pathColor = NSColor(red: 0.5803, green: 0.5514, blue: 0.5172, alpha: 1.0)
@@ -40,10 +44,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         symbols.removeFirst()
         
         var data: UInt8 = 0
-        if let data_n = UInt8(symbols[0]) {
-            data = data_n
+        if (enable_data) {
+            if let data_n = UInt8(symbols[0]) {
+                data = data_n
+            }
+            symbols.removeFirst()
+        } else {
+            data = 255
         }
-        symbols.removeFirst()
         
         var neighbours: [UInt8] = []
         for symbol in symbols {
