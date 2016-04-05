@@ -20,25 +20,7 @@
 		82F5C3741C6D3AEC002E72E3 /* MeshPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F5C3731C6D3AEC002E72E3 /* MeshPath.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		22A535D71C77CEBF009BF7E9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 22A535D21C77CEBE009BF7E9 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8E5058931D6C150CC9A7713CF1BFAB26;
-			remoteInfo = ORSSerialPort;
-		};
-		22A535D91C77CEBF009BF7E9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 22A535D21C77CEBE009BF7E9 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3E56DA16EA681CB930BFBC229032F6CC;
-			remoteInfo = "Pods-MeshKit";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		22A535D21C77CEBE009BF7E9 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		82C619F31C6E5F3300A3089C /* ConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
 		82C619F41C6E5F3300A3089C /* ConfigurationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigurationViewController.xib; sourceTree = "<group>"; };
 		82F5C35B1C6CE34A002E72E3 /* MeshKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeshKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,15 +59,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		22A535D31C77CEBE009BF7E9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				22A535D81C77CEBF009BF7E9 /* ORSSerial.framework */,
-				22A535DA1C77CEBF009BF7E9 /* Pods_MeshKit.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		57B9FA4A61B31C2CA6E59515 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,7 +70,6 @@
 		82F5C3521C6CE34A002E72E3 = {
 			isa = PBXGroup;
 			children = (
-				22A535D21C77CEBE009BF7E9 /* Pods.xcodeproj */,
 				82F5C35D1C6CE34A002E72E3 /* MeshKit */,
 				82F5C35C1C6CE34A002E72E3 /* Products */,
 				2214AC56AECCBD0E3872D688 /* Pods */,
@@ -180,35 +152,12 @@
 			mainGroup = 82F5C3521C6CE34A002E72E3;
 			productRefGroup = 82F5C35C1C6CE34A002E72E3 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 22A535D31C77CEBE009BF7E9 /* Products */;
-					ProjectRef = 22A535D21C77CEBE009BF7E9 /* Pods.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				82F5C35A1C6CE34A002E72E3 /* MeshKit */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		22A535D81C77CEBF009BF7E9 /* ORSSerial.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ORSSerial.framework;
-			remoteRef = 22A535D71C77CEBF009BF7E9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		22A535DA1C77CEBF009BF7E9 /* Pods_MeshKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Pods_MeshKit.framework;
-			remoteRef = 22A535D91C77CEBF009BF7E9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		82F5C3591C6CE34A002E72E3 /* Resources */ = {

@@ -98,7 +98,7 @@ class MeshNode: SKSpriteNode {
                 return index;
             }
             
-            ++index
+            index += 1
         }
         
         return -1
@@ -111,7 +111,7 @@ class MeshNode: SKSpriteNode {
                 return index
             }
             
-            ++index
+            index += 1
         }
         
         return -1
@@ -127,16 +127,17 @@ class MeshNode: SKSpriteNode {
         return nil
     }
     
-    class func delNode(withID id: UInt8, var inArray array: [MeshNode]) -> [MeshNode] {
+    class func delNode(withID id: UInt8, inArray array: [MeshNode]) -> [MeshNode] {
         let index = findIndexOfNode(withID: id, inArray: array)
+        var _array = array
         
         if (index < 0) {
             return array
         }
         
-        array.removeAtIndex(index)
+        _array.removeAtIndex(index)
         
-        return array
+        return _array
     }
     
     /*********************

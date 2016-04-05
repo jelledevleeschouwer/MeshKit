@@ -82,7 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         
-        count++
+        count += 1
 
     }
     

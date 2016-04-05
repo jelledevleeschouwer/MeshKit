@@ -212,12 +212,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         let frame = configurationViewController!.view.bounds
         var styleMask = NSTitledWindowMask + NSClosableWindowMask
         let rect = NSWindow.contentRectForFrameRect(frame, styleMask: styleMask)
-        detachedWindow = NSWindow(contentRect: rect, styleMask: styleMask, backing: NSBackingStoreType.Buffered , `defer`: true)
+        detachedWindow = NSWindow(contentRect: rect, styleMask: styleMask, backing: NSBackingStoreType.Buffered , defer: true)
         detachedWindow.contentViewController = configurationViewController
         detachedWindow.releasedWhenClosed = false
         
         styleMask = NSTitledWindowMask + NSClosableWindowMask + NSHUDWindowMask + NSUtilityWindowMask;
-        detachedHUDWindow = NSPanel(contentRect: rect, styleMask: styleMask, backing: NSBackingStoreType.Buffered , `defer`: true)
+        detachedHUDWindow = NSPanel(contentRect: rect, styleMask: styleMask, backing: NSBackingStoreType.Buffered , defer: true)
         detachedHUDWindow.contentViewController = configurationViewController
         detachedHUDWindow.releasedWhenClosed = false
         popOver = NSPopover()
@@ -240,7 +240,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSWindowD
         
         configurationViewController?.portDelegate = self
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "screenResize:", name: NSWindowDidResizeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.screenResize(_:)), name: NSWindowDidResizeNotification, object: nil)
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool {
