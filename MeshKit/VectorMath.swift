@@ -39,7 +39,7 @@ class VectorMath: NSObject {
     }
     
     /* Create a vector between two SKSpriteNodes */
-    class func createVector(between a: SKSpriteNode, and b: SKSpriteNode) -> CGVector {
+    class func createVector(between a: SKShapeNode, and b: SKShapeNode) -> CGVector {
         return CGVectorMake(b.position.x - a.position.x, b.position.y - a.position.y)
     }
     
@@ -61,7 +61,7 @@ class VectorMath: NSObject {
     }
     
     /* Determine a vector between in an SKSpriteNode and a Point */
-    class func vectorFromNode(a: SKSpriteNode, toPoint b: CGPoint) -> CGVector {
+    class func vectorFromNode(a: SKShapeNode, toPoint b: CGPoint) -> CGVector {
         return CGVectorMake(b.x - a.position.x, b.y - a.position.y)
     }
 }

@@ -65,11 +65,11 @@ class MeshPath: SKShapeNode {
     }
     
     class func delPath(fromNodeWithID nodeID: UInt8, toNodeWithID neighID: UInt8, fromArray array: [MeshPath]) -> ([MeshPath], MeshPath?) {
-        let index = findIndexOfPath(fromNodeWithID: nodeID, toNodeWithID: neighID, inArray: array)
         var _array = array
+        let index = findIndexOfPath(fromNodeWithID: nodeID, toNodeWithID: neighID, inArray: _array)
         
         if (index < 0) {
-            return (array, nil)
+            return (_array, nil)
         }
         
         let del = _array.removeAtIndex(index)
@@ -82,7 +82,7 @@ class MeshPath: SKShapeNode {
         var _array = array
         
         for neigh in nodes {
-            let (narray, del) = delPath(fromNodeWithID: node.id, toNodeWithID: neigh.id, fromArray: array)
+            let (narray, del) = delPath(fromNodeWithID: node.id, toNodeWithID: neigh.id, fromArray: _array)
             if (del != nil) {
                 _array = narray
                 deleted.append(del!)
@@ -96,7 +96,7 @@ class MeshPath: SKShapeNode {
         var _array = array
         for path in _array {
             if (path.node.id == id || path.neighbour.id == id) {
-                _array.removeAtIndex(array.indexOf(path)!)
+                _array.removeAtIndex(_array.indexOf(path)!)
             }
         }
         
@@ -105,13 +105,13 @@ class MeshPath: SKShapeNode {
     
     class func addPath(from node: MeshNode, to neigh: MeshNode, withColor color: NSColor, toArray array: [MeshPath]) -> ([MeshPath], MeshPath?) {
         var _array = array
-        if let _ = MeshPath.findPath(fromNodeWithID: node.id, toNodeWithID: neigh.id, inArray: array) {
+        if let _ = MeshPath.findPath(fromNodeWithID: node.id, toNodeWithID: neigh.id, inArray: _array) {
             /* Path already exists */
         } else {
             /* Create new path and add to array */
             let new = MeshPath(from: node, toNeighbour: neigh, withColor: color)
             _array.append(new)
-            return (array, new)
+            return (_array, new)
         }
         
         return (_array, nil)
@@ -132,6 +132,7 @@ class MeshPath: SKShapeNode {
         self.path = self.meshPath
         self.strokeColor = color
         self.lineWidth = 2.0
+        self.zPosition = -2
     }
     
     required init?(coder aDecoder: NSCoder) {

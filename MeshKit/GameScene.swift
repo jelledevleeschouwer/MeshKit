@@ -12,8 +12,12 @@ import ORSSerial
 
 var nodeCount: UInt8 = 1
 
+/********************************
+ *  SET THIS VALUE TO
+ ********************************/
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    internal let pathColor = NSColor(red: 0.7002, green: 0.8241, blue: 0.031, alpha: 1.0)
+    internal let pathColor = NSColor(red: 0.5803, green: 0.5514, blue: 0.5172, alpha: 1.0)
     internal let scale: CGFloat = 0.2
     
     var nodes: [MeshNode] = [];
@@ -35,6 +39,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         symbols.removeFirst()
         
+        var data: UInt8 = 0
+        if let data_n = UInt8(symbols[0]) {
+            data = data_n
+        }
+        symbols.removeFirst()
+        
         var neighbours: [UInt8] = []
         for symbol in symbols {
             if let n = UInt8(symbol) {
@@ -42,7 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        self.parseNode(withID: node, andNeighbours: neighbours)
+        self.parseNode(withID: node, andNeighbours: neighbours, andData:data)
     }
     
     override func mouseDown(theEvent: NSEvent) {
@@ -51,31 +61,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         switch(count) {
         case 0:
-            parseNeighbourList("001 002")
+            parseNeighbourList("001 234 002")
         case 1:
-            parseNeighbourList("002 001")
+            parseNeighbourList("002 123 001")
         case 2:
-            parseNeighbourList("001 002")
+            parseNeighbourList("001 23 002")
         case 3:
-            parseNeighbourList("003 002 001")
+            parseNeighbourList("003 101 02 001")
         case 4:
-            parseNeighbourList("004 002 003")
+            parseNeighbourList("004 100 002 003")
         case 5:
-            parseNeighbourList("005 002 003")
+            parseNeighbourList("005 3 002 003")
         case 6:
-            parseNeighbourList("006 001")
+            parseNeighbourList("006 255 001")
         case 7:
-            parseNeighbourList("004 003")
+            parseNeighbourList("004 80 003")
         case 8:
-            parseNeighbourList("002 001")
+            parseNeighbourList("002 140 001")
         case 9:
-            parseNeighbourList("003")
+            parseNeighbourList("003 90")
         case 10:
-            parseNeighbourList("003 002 001")
+            parseNeighbourList("003 180 002 001")
         case 11:
-            parseNeighbourList("004 003")
+            parseNeighbourList("004 32 003")
         case 12:
-            parseNeighbourList("005 004")
+            parseNeighbourList("005 60 004")
         default:
             parseNeighbourList("")
             /* Do nothing */
@@ -141,14 +151,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return node
     }
     
-    func parseNode(withID id: UInt8, andNeighbours neighbours: [UInt8]) {
+    func parseNode(withID id: UInt8, andNeighbours neighbours: [UInt8], andData data: UInt8) {
         /* If the node with this ID already exists */
         if let node = MeshNode.findNode(withID: id, inArray: nodes) {
             parseNeighbours(neighbours, of: node)
+            node.setData(data)
         } else {
             /* Node doesn't exist, create it */
             let new = createNode(withID: id)
-            
+            new.setData(data)
             parseNeighbours(neighbours, of: new)
         }
     }
@@ -186,8 +197,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         self.physicsWorld.contactDelegate = self
         
-        self.backgroundColor = NSColor(red: 0.5803, green: 0.5514, blue: 0.5172, alpha: 1.0)
-        //self.backgroundColor = NSColor.whiteColor()
+        //self.backgroundColor = NSColor(red: 0.5803, green: 0.5514, blue: 0.5172, alpha: 1.0)
+        self.backgroundColor = NSColor.whiteColor()
         
         NSScreen.mainScreen()!.frame
         

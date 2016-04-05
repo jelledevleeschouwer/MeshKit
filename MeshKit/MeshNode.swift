@@ -14,9 +14,8 @@ let REPULSION: CGFloat   = ATTRACTION * 200
 let GENERAL_REP: CGFloat = ATTRACTION * 20
 let GRAVITY: CGFloat     = 30
 
-class MeshNode: SKSpriteNode {
+class MeshNode: SKShapeNode {
     internal let idLabel: SKLabelNode
-    
     internal var confirmed = false
     internal var neighbours: [MeshNode] = []
     var id: UInt8 = 0
@@ -199,6 +198,10 @@ class MeshNode: SKSpriteNode {
         //}
     }
     
+    func setData(data: UInt8) {
+        self.fillColor = NSColor(hue: CGFloat(data) * (0.3 / 255), saturation: 0.9, brightness: 0.9, alpha: 1.0)
+    }
+    
     func initPhysics() {
         /* Intialise the physics body */
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.frame.size.width / 2)
@@ -227,23 +230,23 @@ class MeshNode: SKSpriteNode {
      *  INITIALISATION
      *********************/
     init(withID id: UInt8) {
-        let texture: SKTexture
-        
-        /* Initialize with sprite-image */
-        if (id == 0) {
-            texture = SKTexture()
-        } else {
-            texture = SKTexture(imageNamed: "circle")
-        }
+        let radius = 200
+        let diameter = radius * 2
         
         idLabel = SKLabelNode(fontNamed: "Menlo")
         
-        super.init(texture: texture, color: NSColor.clearColor(), size: texture.size())
+        super.init()
+        
+        if (id == 0) {
+            self.path = CGPathCreateWithEllipseInRect(CGRect(origin: CGPointMake(CGPointZero.x - CGFloat(radius), CGPointZero.y - CGFloat(radius)), size: CGSize(width: diameter, height: diameter)), nil)
+        } else {
+            self.path = CGPathCreateWithEllipseInRect(CGRect(origin: CGPointMake(CGPointZero.x - CGFloat(radius), CGPointZero.y - CGFloat(radius)), size: CGSize(width: diameter, height: diameter)), nil)
+            self.fillColor = NSColor(red: 0.42, green: 0.90, blue: 0.35, alpha: 1.0)
+            self.strokeColor = NSColor.clearColor()
+        }
         
         /* Set some params */
         self.id = id
-        
-        /**/
         
         if (id != 0) {
             idLabel.text = String(self.id)
